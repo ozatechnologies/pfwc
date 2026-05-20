@@ -1,0 +1,46 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets (never commit)
+config/mail.config.php
+.env
+.env.*
+!.env.example
+
+# Logs & runtime
+*.log
+error_log
+php_errors.log
+logs/
+
+# Temp / cache
+tmp/
+cache/
+*.tmp
+
+# Archives & backups
+*.zip
+*.tar
+*.tar.gz
+*.bak
+
+# Node (if added later)
+node_modules/
+package-lock.json
+
+# -----------------------------------------------------------------------------
+# Always track Apache config and domain verification (do not ignore)
+# -----------------------------------------------------------------------------
+!.htaccess
+!.well-known/
+!.well-known/**
