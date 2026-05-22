@@ -1288,8 +1288,6 @@ h6 {
 .service-card:hover .service-title {
   transform: translateY(-20px);
   font-size: 1.4rem;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 12px;
   width: 100%;
 }
 
@@ -3275,7 +3273,7 @@ h6 {
 }
 .why-choose-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -3344,4 +3342,66 @@ h6 {
     font-size: 1rem;
     line-height: 1.5;
     margin: 0;
+}
+
+/* Responsive Styles for Why Choose Us */
+@media (max-width: 992px) {
+    .why-choose-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .why-choose-section {
+        padding: 4rem 1rem;
+    }
+    .why-choose-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .why-choose-card {
+        height: 220px;
+        padding: 1rem;
+    }
+    .why-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+    .why-title {
+        font-size: 1.1rem;
+    }
+    .why-details {
+        padding: 1rem;
+    }
+    .why-details h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    .why-details p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .why-choose-grid {
+        gap: 0.75rem;
+    }
+    .why-choose-card {
+        height: 180px;
+        padding: 0.75rem;
+    }
+    .why-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    .why-title {
+        font-size: 0.9rem;
+    }
+    .why-details h3 {
+        font-size: 0.9rem;
+    }
+    .why-details p {
+        font-size: 0.8rem;
+    }
 }
