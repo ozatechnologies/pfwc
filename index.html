@@ -319,7 +319,7 @@
             gap: 0.65rem;
             padding: 1.5rem 1rem;
             background: linear-gradient(135deg, rgba(16, 155, 160, 0.08) 0%, rgba(9, 24, 83, 0.06) 100%);
-            border: 1px solid rgba(16, 155, 160, 0.15);
+            border: none;
             border-radius: 16px;
             cursor: default;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -594,7 +594,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-left">
-            <a href="#" class="logo">
+            <a href="#home" class="logo">
                 <img src="imgs/logo-100.png" alt="Panchvati Logo" class="logo-img">
             </a>
         </div>
@@ -644,7 +644,7 @@
     </div>
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <video autoplay muted loop playsinline preload="auto" class="hero-video">
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="hero-video">
             <source src="imgs/vid.mp4" type="video/mp4" />
         </video>
         <div class="hero-overlay"></div>
@@ -684,17 +684,7 @@
                     </p>
                 </div>
             </div>
-            <div class="pf-name-summary pf-glass-box">
-                <p class="pf-name-explain">
-                    <span> Flow + Gistics </span>
-                    <span class="strong">= Flowgistics</span>
-                </p>
-                <div class="pf-tagline">
-                    <div class="pf-tagline-sub"><i class="fas fa-wave-square"></i> Manage Flow.</div>
-                    <div class="pf-tagline-sub"><i class="fas fa-box"></i> Move Cargo.</div>
-                    <div class="pf-tagline-sub"><i class="fas fa-handshake"></i> Deliver Trust.</div>
-                </div>
-            </div>
+
             <div class="pf-section-header">
                 <h2>One-Stop Logistics Solution</h2>
                 <p>
@@ -785,11 +775,11 @@
         </div>
         <div class="pa-stats-container">
             <div class="pa-stat-card">
-                <div class="pa-stat-number" data-target="10">0</div>
+                <div class="pa-stat-number" data-target="8">0</div>
                 <div class="pa-stat-label">Years Experience</div>
             </div>
             <div class="pa-stat-card">
-                <div class="pa-stat-number" data-target="250">0</div>
+                <div class="pa-stat-number" data-target="100">0</div>
                 <div class="pa-stat-label">Happy Clients</div>
             </div>
             <div class="pa-stat-card">
