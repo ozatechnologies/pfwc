@@ -798,6 +798,28 @@ h6 {
 
 /* Responsive */
 @media (max-width: 768px) {
+  /* Show mobile toggle on small screens */
+  .mobile-toggle {
+    display: block;
+  }
+  /* Hide desktop navigation menu on mobile */
+  .nav-menu {
+    display: none;
+  }
+  /* Adjust header right area for mobile */
+  .header-right {
+    display: none;
+  }
+  /* Adjust header layout for mobile */
+  .header {
+    justify-content: space-between;
+    padding: 15px 5%;
+  }
+  /* Ensure mobile nav covers full width */
+  .mobile-nav {
+    width: 100%;
+  }
+
   .swiper {
     padding: 0 10px;
   }
