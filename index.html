@@ -587,6 +587,244 @@
                 flex-shrink: 0;
             }
         }
+
+        /* ========== NEW: Custom Hero Section ========== */
+        .hero-new {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+            /* Header offset */
+        }
+
+        .hero-new-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-new-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(9, 24, 83, 0.95) 0%, rgba(9, 24, 83, 0.88) 55%, rgba(9, 24, 83, 0.5) 85%, rgba(0, 0, 0, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-new-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-new-content {
+            max-width: 800px;
+        }
+
+        .hero-new-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 3.5rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-new-title span {
+            color: #109ba0;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-new-features {
+            display: flex;
+            align-items: flex-start;
+            gap: 2.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .hero-new-features .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            padding-right: 2.5rem;
+        }
+
+        .hero-new-features .feature-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-new-features .hero-new-feature-icon {
+            margin-bottom: 1rem;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .hero-new-features .hero-new-feature-icon svg {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+        }
+
+        .hero-new-features .feature-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin: 0;
+            white-space: nowrap;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-new-features .feature-text span {
+            color: #109ba0;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-new-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 2.2rem;
+            border: 1px solid #109ba0;
+            border-radius: 30px;
+            background: transparent;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .hero-new-btn i {
+            margin-left: 10px;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-new-btn:hover {
+            background: rgba(16, 155, 160, 0.1);
+            box-shadow: 0 0 15px rgba(16, 155, 160, 0.3);
+            border-color: #0d7e82;
+        }
+
+        .hero-new-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .hero-new-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: #ffffff;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            40% {
+                transform: translateY(-15px) translateX(-50%);
+            }
+
+            60% {
+                transform: translateY(-7px) translateX(-50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-new {
+                padding-top: 100px;
+            }
+
+            .hero-new-title {
+                font-size: 2.2rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-new-features {
+                flex-direction: row;
+                gap: 0.5rem;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+
+            .hero-new-features .feature-item {
+                padding-right: 0.5rem;
+                align-items: center;
+                text-align: center;
+                width: auto;
+            }
+
+            .hero-new-features .feature-item:not(:last-child)::after {
+                display: block;
+                height: 70%;
+                top: 15%;
+                right: -0.25rem;
+            }
+
+            .hero-new-features .hero-new-feature-icon {
+                height: 24px;
+                margin-bottom: 0.5rem;
+                flex-shrink: 0;
+            }
+
+            .hero-new-features .hero-new-feature-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .hero-new-features .feature-text {
+                font-size: 0.75rem;
+                white-space: normal;
+                line-height: 1.2;
+            }
+
+            .hero-new-content {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 
@@ -643,15 +881,77 @@
         </div>
     </div>
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="hero-video">
+    <section class="hero-new" id="home">
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="hero-new-video">
             <source src="imgs/vid.mp4" type="video/mp4" />
         </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Panchvati Flowgistics</h1>
-            <p>Moving Cargo, Managing Flow, Delivering Trust</p>
-            <a href="#contact" class="btn">Request a Quote</a>
+        <div class="hero-new-overlay"></div>
+        <div class="hero-new-container">
+            <div class="hero-new-content">
+                <h1 class="hero-new-title">
+                    Moving <span>Cargo.</span><br>
+                    Managing <span>Flow.</span><br>
+                    Delivering <span>Trust.</span>
+                </h1>
+
+                <div class="hero-new-features">
+                    <div class="feature-item">
+                        <div class="hero-new-feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path stroke="#109ba0" stroke-width="1.5"
+                                        d="M.75 23.25a5.75 5.75 0 0 0 4.5-2c1.5 1.5 1.75 2 3.25 2s2-.5 3.5-2c1.5 1.5 2 2 3.5 2s1.75-.5 3.25-2a5.75 5.75 0 0 0 4.5 2m-.37-3.05l.26-2.11a.71.71 0 0 0-.14-.59a.73.73 0 0 0-.56-.25H1.5a.76.76 0 0 0-.75.82a8.2 8.2 0 0 0 .54 2.26" />
+                                    <path
+                                        d="M21.75 17.25h-6v-12a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5zm-3-10h-3m3.75-3.5v-3m-15.75 8h12v8.5H2.25v-7a1.5 1.5 0 0 1 1.5-1.5m4.5 0v8.5m-6-4.25h13.24" />
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="feature-text">Moving <span>Cargo</span></p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="hero-new-feature-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="16" y="12" width="32" height="44" rx="4" />
+                                <path d="M24 12 L24 8 Q24 4 28 4 L36 4 Q40 4 40 8 L40 12" />
+                                <path d="M24 24 L40 24" />
+                                <circle cx="26" cy="34" r="3" />
+                                <path d="M32 34 L40 34" />
+                                <circle cx="26" cy="44" r="3" />
+                                <path d="M32 44 L40 44" />
+                                <circle cx="48" cy="48" r="10" stroke="#109ba0" fill="#091853" />
+                                <path d="M44 48 L47 51 L53 45" stroke="#109ba0" stroke-width="3" />
+                            </svg>
+                        </div>
+                        <p class="feature-text">Managing Flow</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="hero-new-feature-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="4" y="24" width="36" height="20" rx="2" />
+                                <path d="M40 28 L50 28 L56 36 L56 44 L40 44 Z" />
+                                <path d="M50 28 L50 36 L56 36" />
+                                <circle cx="16" cy="48" r="4" />
+                                <circle cx="48" cy="48" r="4" />
+                                <path
+                                    d="M8 28 L8 40 M14 28 L14 40 M20 28 L20 40 M26 28 L26 40 M32 28 L32 40 M38 28 L38 40"
+                                    stroke="#109ba0" />
+                            </svg>
+                        </div>
+                        <p class="feature-text">Delivering Trust</p>
+                    </div>
+                </div>
+
+                <a href="#contact" class="hero-new-btn">
+                    Get In Touch <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-new-scroll" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
     <!-- Compact Intro Section -->
@@ -669,7 +969,8 @@
             </div>
             <div class="pf-name-concept">
                 <div class="pf-name-breakdown">
-                    <i class="fas fa-water" style="font-size: 2.2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
+                    <i class="fas fa-water"
+                        style="font-size: 2.2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
                     <h3>FLOW</h3>
                     <p>
                         End-to-end seamless cargo movement.
@@ -677,7 +978,8 @@
                 </div>
                 <div class="pf-plus-name"><i class="fas fa-plus"></i></div>
                 <div class="pf-name-breakdown">
-                    <i class="fas fa-network-wired" style="font-size: 2.2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
+                    <i class="fas fa-network-wired"
+                        style="font-size: 2.2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
                     <h3>GISTICS</h3>
                     <p>
                         Strategic expertise driving global supply chains.
@@ -741,17 +1043,19 @@
             </div>
             <div class="pa-about-text">
                 <h3>Who We Are</h3>
-<p>
-    Panchvati Flowgistics is a growing international logistics and EXIM support company dedicated to delivering reliable, transparent, and efficient cargo solutions across India and global markets.
-</p>
-
-<p>
-    We specialize in freight forwarding, customs clearance, transportation, warehousing, and end-to-end logistics coordination for importers and exporters. Our focus is to simplify cargo movement while ensuring seamless documentation, regulatory compliance, and timely delivery.
-</p>
-
-<p>
-    Backed by practical industry experience and a customer-focused approach, we help businesses manage their supply chains with confidence, professionalism, and long-term trust.
-</p>
+                <p>
+                    Panchvati Flowgistics is a growing international logistics and EXIM support company dedicated to
+                    providing reliable, transparent, and efficient cargo solutions across India and global markets.
+                </p>
+                <p>
+                    We specialize in freight forwarding, customs clearance, transportation, warehousing, and complete
+                    logistics coordination for importers and exporters. Our goal is to simplify the movement of cargo
+                    while ensuring smooth documentation, compliance, and timely delivery.
+                </p>
+                <p>
+                    With practical industry experience and a customer-focused approach, we help businesses manage their
+                    supply chain with confidence, professionalism, and trust.
+                </p>
 
             </div>
         </div>
