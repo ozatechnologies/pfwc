@@ -69,11 +69,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // Video fallback
-  const video = document.querySelector(".hero-video");
-  video.addEventListener("error", function () {
-    document.querySelector(".hero").style.background =
-      "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)";
-  });
+  const video = document.querySelector(".hero-video") || document.querySelector(".hero-new-video");
+  if (video) {
+    video.addEventListener("error", function () {
+      const hero = document.querySelector(".hero") || document.querySelector(".hero-new");
+      if (hero) {
+        hero.style.background =
+          "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)";
+      }
+    });
+  }
 
   // Modal functionality
   const viewButtons = document.querySelectorAll(".ps-view-details");
@@ -120,23 +125,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const mobileNav = document.getElementById("mobileNav");
   const closeMenu = document.querySelector(".close-menu");
 
-  mobileToggle.addEventListener("click", function () {
-    mobileNav.classList.add("active");
-    document.body.style.overflow = "hidden";
-  });
+  if (mobileToggle && mobileNav) {
+    mobileToggle.addEventListener("click", function () {
+      mobileNav.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  }
 
-  closeMenu.addEventListener("click", function () {
-    mobileNav.classList.remove("active");
-    document.body.style.overflow = "";
-  });
-
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll(".mobile-nav a").forEach((link) => {
-    link.addEventListener("click", function () {
+  if (closeMenu && mobileNav) {
+    closeMenu.addEventListener("click", function () {
       mobileNav.classList.remove("active");
       document.body.style.overflow = "";
     });
-  });
+  }
+
+  // Close mobile menu when clicking on a link
+  if (mobileNav) {
+    document.querySelectorAll(".mobile-nav a").forEach((link) => {
+      link.addEventListener("click", function () {
+        mobileNav.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+    });
+  }
 
   // Service modals
   const serviceCards = document.querySelectorAll('.service-card:not(.only-bg)');
