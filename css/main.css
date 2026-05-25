@@ -8,6 +8,7 @@
   --gradient: linear-gradient(135deg, var(--primary) 0%, #0c2161 100%);
   --card-shadow1: 0 15px 30px rgba(9, 24, 83, 0.1);
   --card-shadow: 0 15px 30px rgba(9, 24, 83, 0.15);
+  --text-light: #666;
   --gold: #d4af37;
   --silver: #c0c0c0;
 }
@@ -16,16 +17,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-img,
-video {
-  max-width: 100%;
-  display: block;
 }
 
 html,
@@ -317,7 +308,7 @@ h6 {
   height: 100%;
   background: linear-gradient(rgba(7, 17, 40, 0.42),
       rgba(7, 17, 40, 0.54));
-  /* backdrop-filter removed for mobile perf */
+  backdrop-filter: blur(1.5px);
   z-index: 1;
 }
 
@@ -367,34 +358,41 @@ h6 {
   color: white;
   text-align: center;
   padding: 0 5%;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(9,24,83,0.65) 0%,
-      rgba(5,16,51,0.72) 100%
-    ),
-    url('imgs/bg.png');
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
-/* .hero-overlay removed — gradient merged into .hero background */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(9, 24, 83, 0.6) 0%, rgba(9, 24, 83, 0.68) 100%);
+  z-index: -1;
+}
 
 .hero-content {
   max-width: 900px;
   z-index: 2;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px);
 }
 
 .hero h1 {
   font-size: 4.5rem;
   margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 1.02;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
@@ -434,6 +432,7 @@ h6 {
 
 /* Section Styles */
 .section {
+  padding: 80px 5%;
   padding: 80px 5%;
   min-height: 100vh;
   display: flex;
@@ -1070,12 +1069,6 @@ h6 {
   .hero h1 {
     font-size: 4rem;
   }
-
-  .header-right {
-    clip-path: none;
-    min-width: auto;
-    padding-left: 40px;
-  }
 }
 
 /* Responsive Design */
@@ -1124,23 +1117,12 @@ h6 {
     display: none;
   }
 
-  .hero {
-    min-height: 100svh;
-    height: auto;
-    padding-top: 120px;
-    padding-bottom: 80px;
-  }
-
   .hero h1 {
     font-size: 2.8rem;
   }
 
   .hero p {
     font-size: 1.4rem;
-  }
-
-  .sticky-bg-img {
-    background-attachment: scroll;
   }
 
   .mission-vision {
@@ -1164,7 +1146,7 @@ h6 {
 
 @media (max-width: 576px) {
   .hero h1 {
-    font-size: clamp(2rem, 8vw, 4.5rem);
+    font-size: 2.3rem;
   }
 
   .hero p {
@@ -1268,8 +1250,8 @@ h6 {
 }
 
 .service-card:hover .service-header img {
-  opacity: 0.55;
-  transform: scale(1.08);
+  transform: scale(1.1);
+  filter: blur(2px) brightness(0.6);
 }
 
 .service-overlay {
@@ -1312,6 +1294,7 @@ h6 {
   color: white;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
