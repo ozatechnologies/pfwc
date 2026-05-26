@@ -48,13 +48,13 @@ h6 {
   top: 0;
   left: 0;
   width: 100%;
-  /* padding: 20px 5%; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: all 0.5s ease;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
@@ -66,7 +66,7 @@ h6 {
 .header-right {
 
   clip-path: polygon(5% 0%, 75% 0%, 100% 0%, 100% 100%, 80% 100%, 0% 100%);
-  background-color: var(--accent);
+  background-color: transparent;
   height: 100px;
   padding-left: 100px;
   display: flex;
@@ -77,7 +77,7 @@ h6 {
 }
 
 .header-right .nav-menu a {
-  color: var(--light);
+  color: var(--primary);
 }
 
 .header-left .logo {
@@ -123,6 +123,8 @@ h6 {
 .nav-menu {
   display: flex;
   list-style: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-menu li {
@@ -130,7 +132,7 @@ h6 {
 }
 
 .nav-menu a {
-  color: var(--text);
+  color: var(--primary);
   text-decoration: none;
   font-size: 16px;
   font-weight: 600;
@@ -173,7 +175,9 @@ h6 {
   left: -100%;
   width: 85%;
   height: 100vh;
-  background: white;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 1000;
   transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
@@ -796,23 +800,28 @@ h6 {
 
 /* Responsive */
 @media (max-width: 768px) {
+
   /* Show mobile toggle on small screens */
   .mobile-toggle {
     display: block;
   }
+
   /* Hide desktop navigation menu on mobile */
   .nav-menu {
     display: none;
   }
+
   /* Adjust header right area for mobile */
   .header-right {
     display: none;
   }
+
   /* Adjust header layout for mobile */
   .header {
     justify-content: space-between;
     padding: 15px 5%;
   }
+
   /* Ensure mobile nav covers full width */
   .mobile-nav {
     width: 100%;
@@ -3473,17 +3482,20 @@ h6 {
     height: 64px;
     fill: none;
   }
-    .hero-new-feature-icon.large-cargo svg {
-        fill: #ffffff !important;
-    }
-    .hero-new-feature-icon.large-truck svg {
-        width: 64px;
-        height: 64px;
-        stroke-width: 3 !important;
-    }
-    .hero-new-feature-icon.large-deliver svg {
-        width: 88px;
-        height: 88px;
-    }
+
+  .hero-new-feature-icon.large-cargo svg {
+    fill: #ffffff !important;
+  }
+
+  .hero-new-feature-icon.large-truck svg {
+    width: 64px;
+    height: 64px;
+    stroke-width: 3 !important;
+  }
+
+  .hero-new-feature-icon.large-deliver svg {
+    width: 88px;
+    height: 88px;
+  }
 
 }
