@@ -606,7 +606,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: fill;
+            object-fit: cover;
             z-index: 0;
             pointer-events: none;
         }
@@ -630,7 +630,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(9, 24, 83, 0.7) 0%, rgba(16, 155, 160, 0.45) 100%);
+            background: linear-gradient(90deg, #121358ee 0%, #232F72cc 30%, #2F578A80 65%, #36ADA326 85%, transparent 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -788,6 +788,10 @@
         }
 
         @media (max-width: 768px) {
+            .hero-new-overlay {
+                background: linear-gradient(to bottom, #121358ee 0%, #232F72cc 45%, #36ADA34d 100%);
+            }
+
             .hero-new {
                 padding-top: 100px;
             }
@@ -899,9 +903,7 @@
     </div>
     <!-- Hero Section -->
     <section class="hero-new" id="home">
-        <video autoplay loop muted playsinline class="hero-new-video">
-            <source src="https://res.cloudinary.com/dvebrppds/video/upload/v1779768304/vid_n3pqvs.mp4" type="video/mp4">
-        </video>
+        <img src="bg.png" class="hero-new-bg" alt="Panchvati Flowgistics Background">
         <div class="hero-new-overlay"></div>
         <div class="hero-new-container">
             <div class="hero-new-content">
@@ -2004,7 +2006,7 @@
                 <h4>Panchvati Flowgistics</h4>
                 <p>
                     Your trusted partner for comprehensive logistics solutions. Moving cargo, managing flow, and
-                    delivering trust for over 10+ years.
+                    delivering trust for over 8+ years.
                 </p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
