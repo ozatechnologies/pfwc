@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panchvati Resort — Naliya, Kutch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --warm-white: #F8F7F3;
+            --soft-ivory: #EEE9E0;
+            --warm-beige: #DED5C8;
+            --muted-sage: #9AA18B;
+            --olive: #59604D;
+            --deep-olive: #3E4636;
+            --soft-charcoal: #30322C;
+            --deep-green: #021d0e;
+            --gold: #C9A96E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            color: var(--soft-charcoal);
+            background-color: var(--warm-white);
+            overflow-x: hidden;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+
+        ::selection {
+            background: var(--muted-sage);
+            color: var(--warm-white);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 28px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-bar.scrolled {
+            background: rgba(248, 247, 243, 0.92);
+            backdrop-filter: blur(12px);
+            padding: 18px 48px;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--warm-white);
+            transition: color 0.5s ease;
+            position: relative;
+        }
+
+        .nav-bar.scrolled .nav-link {
+            color: var(--soft-charcoal);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .nav-logo .tagline {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--warm-white);
+            display: block;
+            margin-bottom: 2px;
+            transition: color 0.5s ease;
+        }
+
+        .nav-bar.scrolled .nav-logo .tagline {
+            color: var(--olive);
+        }
+
+        .nav-logo .name {
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--warm-white);
+            transition: color 0.5s ease;
+        }
+
+        .nav-bar.scrolled .nav-logo .name {
+            color: var(--deep-green);
+        }
+
+        .menu-trigger {
+            width: 28px;
+            height: 14px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-trigger span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--warm-white);
+            transition: all 0.5s ease, background 0.5s ease;
+        }
+
+        .nav-bar.scrolled .menu-trigger span {
+            background: var(--soft-charcoal);
+        }
+
+        .menu-trigger:hover span:nth-child(1) {
+            width: 70%;
+        }
+
+        .menu-trigger:hover span:nth-child(3) {
+            width: 50%;
+        }
+
+        /* ===== FULL SCREEN MENU ===== */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--soft-ivory);
+            z-index: 2000;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .menu-image {
+            width: 45%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .menu-overlay.active .menu-image img {
+            transform: scale(1);
+        }
+
+        .menu-content {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 100px;
+            position: relative;
+        }
+
+        .menu-close {
+            position: absolute;
+            top: 32px;
+            right: 48px;
+            font-size: 32px;
+            font-weight: 200;
+            cursor: pointer;
+            color: var(--soft-charcoal);
+            transition: transform 0.4s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .menu-item {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--soft-charcoal);
+            text-decoration: none;
+            padding: 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid transparent;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .menu-overlay.active .menu-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-overlay.active .menu-item:nth-child(1) { transition-delay: 0.15s; }
+        .menu-overlay.active .menu-item:nth-child(2) { transition-delay: 0.22s; }
+        .menu-overlay.active .menu-item:nth-child(3) { transition-delay: 0.29s; }
+        .menu-overlay.active .menu-item:nth-child(4) { transition-delay: 0.36s; }
+        .menu-overlay.active .menu-item:nth-child(5) { transition-delay: 0.43s; }
+        .menu-overlay.active .menu-item:nth-child(6) { transition-delay: 0.50s; }
+        .menu-overlay.active .menu-item:nth-child(7) { transition-delay: 0.57s; }
+
+        .menu-item:hover {
+            color: var(--olive);
+            padding-left: 12px;
+        }
+
+        .menu-item .plus {
+            font-size: 18px;
+            font-weight: 200;
+            transition: transform 0.4s ease;
+        }
+
+        .menu-item:hover .plus {
+            transform: rotate(45deg);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=80') center/cover no-repeat;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(2, 29, 14, 0.15) 0%, rgba(2, 29, 14, 0.05) 50%, rgba(2, 29, 14, 0.35) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 15%;
+            left: 48px;
+            color: var(--warm-white);
+            z-index: 10;
+        }
+
+        .hero-label {
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 1.2s 0.3s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1.2s 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-location {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 32px;
+            opacity: 0;
+            animation: fadeUp 1.2s 0.9s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-location::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            display: inline-block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== SECTIONS ===== */
+        section {
+            position: relative;
+        }
+
+        /* ===== INTRO SECTION ===== */
+        .intro-section {
+            padding: 180px 48px 120px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro-label {
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--muted-sage);
+            margin-bottom: 40px;
+        }
+
+        .intro-text {
+            font-size: clamp(20px, 2.5vw, 32px);
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--soft-charcoal);
+        }
+
+        .intro-text em {
+            font-style: italic;
+            color: var(--olive);
+        }
+
+        /* ===== ASYMMETRIC GRID SECTIONS ===== */
+        .editorial-section {
+            padding: 80px 48px;
+            position: relative;
+        }
+
+        .grid-asymmetric {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .grid-asymmetric.reverse {
+            direction: rtl;
+        }
+
+        .grid-asymmetric.reverse > * {
+            direction: ltr;
+        }
+
+        .editorial-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .editorial-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .editorial-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .editorial-image.portrait {
+            padding: 0 60px;
+        }
+
+        .editorial-image.portrait img {
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
+
+        .editorial-image.wide {
+            grid-column: 1 / -1;
+            margin: 0 -48px;
+        }
+
+        .editorial-image.wide img {
+            aspect-ratio: 21/9;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .editorial-text {
+            padding: 80px 60px;
+        }
+
+        .editorial-text.offset-left {
+            margin-left: -80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .editorial-text.offset-right {
+            margin-right: -80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--muted-sage);
+            margin-bottom: 24px;
+        }
+
+        .section-heading {
+            font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 300;
+            line-height: 1.15;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+            color: var(--soft-charcoal);
+        }
+
+        .section-heading span {
+            display: block;
+        }
+
+        .section-body {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--olive);
+            max-width: 440px;
+        }
+
+        /* ===== SAGE BLOCKS ===== */
+        .sage-block {
+            background: var(--muted-sage);
+            padding: 140px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sage-block.dark {
+            background: var(--deep-green);
+        }
+
+        .sage-block .sage-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--warm-white);
+        }
+
+        .sage-block .section-label {
+            color: rgba(248, 247, 243, 0.6);
+        }
+
+        .sage-block .section-heading {
+            color: var(--warm-white);
+            font-size: clamp(32px, 4vw, 56px);
+        }
+
+        .sage-block .section-body {
+            color: rgba(248, 247, 243, 0.8);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .sage-image-overlap {
+            position: absolute;
+            width: 45%;
+            max-width: 500px;
+        }
+
+        .sage-image-overlap.top-right {
+            top: -60px;
+            right: 48px;
+        }
+
+        .sage-image-overlap.bottom-left {
+            bottom: -80px;
+            left: 48px;
+        }
+
+        .sage-image-overlap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        /* ===== WHITESPACE SECTION ===== */
+        .whitespace-section {
+            padding: 200px 48px;
+            text-align: center;
+        }
+
+        .whitespace-section .section-heading {
+            margin-bottom: 0;
+        }
+
+        /* ===== ROOMS SECTION ===== */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .room-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .room-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .room-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 30px 30px;
+            background: linear-gradient(to top, rgba(2, 29, 14, 0.7) 0%, transparent 100%);
+            color: var(--warm-white);
+        }
+
+        .room-card-name {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .room-card-detail {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-top: 6px;
+        }
+
+        /* ===== EXPERIENCES ===== */
+        .experience-list {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .experience-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--warm-beige);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .experience-item:hover {
+            padding-left: 16px;
+            color: var(--olive);
+        }
+
+        .experience-name {
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .experience-arrow {
+            font-size: 20px;
+            font-weight: 200;
+            transition: transform 0.4s ease;
+        }
+
+        .experience-item:hover .experience-arrow {
+            transform: translateX(8px);
+        }
+
+        /* ===== PARALLAX IMAGE ===== */
+        .parallax-section {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .parallax-image {
+            position: absolute;
+            top: -20%;
+            left: 0;
+            width: 100%;
+            height: 140%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 29, 14, 0.25);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--deep-green);
+            color: var(--warm-white);
+            padding: 120px 48px 60px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand .name {
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand .tagline {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 24px;
+        }
+
+        .footer-brand .address {
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: 0.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 400;
+            margin-bottom: 24px;
+            opacity: 0.5;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 13px;
+            color: var(--warm-white);
+            text-decoration: none;
+            padding: 6px 0;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(248, 247, 243, 0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        /* ===== SCROLL INDICATOR ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--warm-white);
+            opacity: 0.7;
+            animation: fadeUp 1.2s 1.2s forwards;
+            opacity: 0;
+        }
+
+        .scroll-indicator span {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--warm-white), transparent);
+            animation: scrollPulse 2s infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        /* ===== IMAGE MASK REVEAL ===== */
+        .mask-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mask-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--soft-ivory);
+            transform: translateX(0);
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .mask-reveal.visible::after {
+            transform: translateX(100%);
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 1024px) {
+            .grid-asymmetric {
+                grid-template-columns: 1fr;
+            }
+
+            .editorial-text.offset-left,
+            .editorial-text.offset-right {
+                margin: 0;
+            }
+
+            .rooms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .menu-image {
+                display: none;
+            }
+
+            .menu-content {
+                width: 100%;
+                padding: 80px 40px;
+            }
+
+            .sage-image-overlap {
+                position: relative;
+                width: 80%;
+                max-width: none;
+                margin: 40px auto;
+                top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                padding: 20px 24px;
+            }
+
+            .nav-bar.scrolled {
+                padding: 14px 24px;
+            }
+
+            .nav-left, .nav-right {
+                gap: 16px;
+            }
+
+            .nav-link {
+                font-size: 9px;
+                letter-spacing: 2px;
+            }
+
+            .nav-logo .name {
+                font-size: 16px;
+                letter-spacing: 3px;
+            }
+
+            .hero-content {
+                left: 24px;
+                bottom: 20%;
+            }
+
+            .editorial-section {
+                padding: 60px 24px;
+            }
+
+            .editorial-text {
+                padding: 40px 0;
+            }
+
+            .editorial-image.portrait {
+                padding: 0 20px;
+            }
+
+            .rooms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer {
+                padding: 80px 24px 40px;
+            }
+
+            .intro-section {
+                padding: 100px 24px 80px;
+            }
+
+            .whitespace-section {
+                padding: 120px 24px;
+            }
+
+            .sage-block {
+                padding: 100px 24px;
+            }
+
+            .experience-list {
+                padding: 0 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-bar" id="navbar">
+        <div class="nav-left">
+            <a href="#contact" class="nav-link">Enquire Now</a>
+            <a href="#" class="nav-link">Book Directly</a>
+        </div>
+        <div class="nav-logo">
+            <span class="tagline">Feel Good Resort</span>
+            <span class="name">Panchvati</span>
+        </div>
+        <div class="nav-right">
+            <a href="#rooms" class="nav-link">Rooms & Suites</a>
+            <a href="#offers" class="nav-link">Last Minute</a>
+            <div class="menu-trigger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FULL SCREEN MENU -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-image">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80" alt="Resort Interior">
+        </div>
+        <div class="menu-content">
+            <div class="menu-close" onclick="toggleMenu()">&times;</div>
+            <a href="#rooms" class="menu-item" onclick="toggleMenu()">Rooms & Suites <span class="plus">+</span></a>
+            <a href="#dining" class="menu-item" onclick="toggleMenu()">Dining <span class="plus">+</span></a>
+            <a href="#wellness" class="menu-item" onclick="toggleMenu()">Wellness <span class="plus">+</span></a>
+            <a href="#experiences" class="menu-item" onclick="toggleMenu()">Experiences <span class="plus">+</span></a>
+            <a href="#region" class="menu-item" onclick="toggleMenu()">The Region <span class="plus">+</span></a>
+            <a href="#gallery" class="menu-item" onclick="toggleMenu()">Photo Gallery</a>
+            <a href="#contact" class="menu-item" onclick="toggleMenu()">Enquiries & Contact <span class="plus">+</span></a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-image" id="heroImage"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-label">Naliya, Kutch</p>
+            <h1 class="hero-title">
+                <span>A Place</span>
+                <span>To Pause</span>
+            </h1>
+            <p class="hero-location">Where the desert meets the sky</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="intro-section">
+        <p class="intro-label reveal">Our Philosophy</p>
+        <p class="intro-text reveal reveal-delay-1">
+            Morning light enters quietly through the eastern windows. Beyond the terrace, the <em>White Desert</em> begins to glow. Here, time moves differently. The salt flats shimmer at dawn. The wind carries stories from ancient trade routes.
+        </p>
+    </section>
+
+    <!-- EDITORIAL: ROOMS -->
+    <section class="editorial-section" id="rooms">
+        <div class="grid-asymmetric">
+            <div class="editorial-image portrait reveal mask-reveal">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Resort Room">
+            </div>
+            <div class="editorial-text offset-left reveal reveal-delay-2">
+                <p class="section-label">Stay Awhile</p>
+                <h2 class="section-heading">
+                    <span>Rooms</span>
+                    <span>& Suites</span>
+                </h2>
+                <p class="section-body">
+                    Each space opens toward the horizon. Handwoven textiles from local artisans. Bathrooms filled with natural light. Beds dressed in linen that softens with every desert breeze.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAGE BLOCK: WELLNESS -->
+    <section class="editorial-section" id="wellness" style="padding-top: 160px; padding-bottom: 160px;">
+        <div class="sage-block">
+            <div class="sage-image-overlap top-right reveal mask-reveal">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Spa Treatment">
+            </div>
+            <div class="sage-content reveal">
+                <p class="section-label">Restore</p>
+                <h2 class="section-heading">
+                    <span>Around 3,000m²</span>
+                    <span>Of Wellness</span>
+                </h2>
+                <p class="section-body">
+                    Ayurvedic therapies drawn from ancient Kutch traditions. Open-air treatment pavilions beneath the neem trees. A infinity pool that dissolves into the salt desert at sunset.
+                </p>
+            </div>
+            <div class="sage-image-overlap bottom-left reveal reveal-delay-2 mask-reveal">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Pool">
+            </div>
+        </div>
+    </section>
+
+    <!-- WIDE IMAGE -->
+    <section class="editorial-section" style="padding: 0;">
+        <div class="editorial-image wide reveal mask-reveal">
+            <img src="https://images.unsplash.com/photo-1615880484746-a134be9a6ecf?w=1920&q=80" alt="Desert Landscape">
+        </div>
+    </section>
+
+    <!-- WHITESPACE + TEXT -->
+    <section class="whitespace-section">
+        <p class="section-label reveal">The Region</p>
+        <h2 class="section-heading reveal reveal-delay-1">
+            <span>Slow</span>
+            <span>Mornings.</span>
+        </h2>
+    </section>
+
+    <!-- EDITORIAL: DINING -->
+    <section class="editorial-section" id="dining">
+        <div class="grid-asymmetric reverse">
+            <div class="editorial-image portrait reveal mask-reveal">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Dining">
+            </div>
+            <div class="editorial-text offset-right reveal reveal-delay-2">
+                <p class="section-label">Savour</p>
+                <h2 class="section-heading">
+                    <span>Desert</span>
+                    <span>Cuisine</span>
+                </h2>
+                <p class="section-body">
+                    Ingredients sourced from the kitchen garden and local farms. Kutchi thalis served beneath a canopy of stars. Fresh baked bajra roti. Chutneys made from foraged desert herbs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARALLAX -->
+    <section class="parallax-section">
+        <div class="parallax-image" id="parallax1" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80');"></div>
+        <div class="parallax-overlay"></div>
+    </section>
+
+    <!-- ROOMS GRID -->
+    <section class="editorial-section" id="offers">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <p class="section-label reveal">Accommodation</p>
+            <h2 class="section-heading reveal reveal-delay-1">
+                <span>Choose</span>
+                <span>Your Space</span>
+            </h2>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card reveal">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=80" alt="Desert Suite">
+                <div class="room-card-overlay">
+                    <div class="room-card-name">Desert Suite</div>
+                    <div class="room-card-detail">65 m² / Desert View</div>
+                </div>
+            </div>
+            <div class="room-card reveal reveal-delay-1">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="Garden Villa">
+                <div class="room-card-overlay">
+                    <div class="room-card-name">Garden Villa</div>
+                    <div class="room-card-detail">85 m² / Private Courtyard</div>
+                </div>
+            </div>
+            <div class="room-card reveal reveal-delay-2">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Royal Tent">
+                <div class="room-card-overlay">
+                    <div class="room-card-name">Royal Tent</div>
+                    <div class="room-card-detail">120 m² / Pool & Garden</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCES -->
+    <section class="editorial-section" id="experiences" style="padding-top: 160px; padding-bottom: 160px;">
+        <div style="text-align: center; margin-bottom: 80px;">
+            <p class="section-label reveal">Discover</p>
+            <h2 class="section-heading reveal reveal-delay-1">
+                <span>Experiences</span>
+            </h2>
+        </div>
+        <div class="experience-list">
+            <div class="experience-item reveal">
+                <span class="experience-name">White Desert Safari at Dawn</span>
+                <span class="experience-arrow">→</span>
+            </div>
+            <div class="experience-item reveal reveal-delay-1">
+                <span class="experience-name">Kutchi Embroidery Workshop</span>
+                <span class="experience-arrow">→</span>
+            </div>
+            <div class="experience-item reveal reveal-delay-2">
+                <span class="experience-name">Sunset Camel Ride</span>
+                <span class="experience-arrow">→</span>
+            </div>
+            <div class="experience-item reveal reveal-delay-3">
+                <span class="experience-name">Stargazing on the Salt Flats</span>
+                <span class="experience-arrow">→</span>
+            </div>
+            <div class="experience-item reveal reveal-delay-4">
+                <span class="experience-name">Traditional Kutchi Cooking Class</span>
+                <span class="experience-arrow">→</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- DARK SAGE BLOCK -->
+    <section class="editorial-section" id="region">
+        <div class="sage-block dark">
+            <div class="sage-content reveal">
+                <p class="section-label">Naliya, Kutch</p>
+                <h2 class="section-heading">
+                    <span>The Land</span>
+                    <span>Of Stories</span>
+                </h2>
+                <p class="section-body">
+                    Where the Great Rann stretches to infinity. Where flamingos paint the winter skies pink. Where every village holds a craft tradition centuries old. Panchvati sits at the edge of this extraordinary landscape, a quiet sanctuary between the desert and the sea.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY STRIP -->
+    <section class="editorial-section" id="gallery" style="padding: 0;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px;">
+            <div class="editorial-image reveal mask-reveal">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=80" alt="Resort Detail" style="aspect-ratio: 4/3; object-fit: cover; width: 100%;">
+            </div>
+            <div class="editorial-image reveal reveal-delay-1 mask-reveal">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Architecture" style="aspect-ratio: 4/3; object-fit: cover; width: 100%;">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="editorial-section" id="contact" style="padding-top: 160px;">
+        <div class="grid-asymmetric">
+            <div class="editorial-text reveal">
+                <p class="section-label">Connect</p>
+                <h2 class="section-heading">
+                    <span>Enquire</span>
+                    <span>Now</span>
+                </h2>
+                <p class="section-body">
+                    Let us craft your stay. Whether you seek solitude, celebration, or simply a pause from the world, we are here to listen.
+                </p>
+                <div style="margin-top: 48px;">
+                    <a href="mailto:stay@panchvati.com" style="font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--deep-green); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 4px;">stay@panchvati.com</a>
+                </div>
+            </div>
+            <div class="editorial-image portrait reveal reveal-delay-2 mask-reveal">
+                <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80" alt="Resort Contact">
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="name">Panchvati</div>
+                <div class="tagline">Feel Good Resort</div>
+                <div class="address">
+                    Naliya, Kutch District<br>
+                    Gujarat 370655, India<br><br>
+                    +91 1234 567 890
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="#rooms">Rooms & Suites</a>
+                <a href="#dining">Dining</a>
+                <a href="#wellness">Wellness</a>
+                <a href="#experiences">Experiences</a>
+            </div>
+            <div class="footer-col">
+                <h4>Discover</h4>
+                <a href="#region">The Region</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#offers">Offers</a>
+                <a href="#">Journal</a>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="#contact">Contact</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Newsletter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Panchvati Resort</span>
+            <span>Crafted with intention</span>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Toggle
+        function toggleMenu() {
+            document.getElementById('menuOverlay').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('menuOverlay').classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Parallax Effects
+        const heroImage = document.getElementById('heroImage');
+        const parallax1 = document.getElementById('parallax1');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.4}px)`;
+            }
+
+            if (parallax1) {
+                const rect = parallax1.parentElement.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const parallaxScrolled = (window.innerHeight - rect.top) * 0.15;
+                    parallax1.style.transform = `translateY(${parallaxScrolled}px)`;
+                }
+            }
+        });
+
+        // Intersection Observer for Reveals
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Mask Reveal Observer
+        const maskObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    maskObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.mask-reveal').forEach(el => {
+            maskObserver.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
